@@ -1,0 +1,34 @@
+{
+  "colaboradores": [
+    {
+      "id": 1,
+      "nombre": "Oscar Rojas",
+      "puesto": "Gerente Operativo"
+    },
+    {
+      "id": 2,
+      "nombre": "Alejandro Rojas",
+      "puesto": "Director General"
+    },
+    {
+      "id": 3,
+      "nombre": "Arnoldo Rodriguez",
+      "puesto": "Auxiliar de sistemas"
+    },
+    {
+      "id": 4,
+      "nombre": "Daniel Quintanilla",
+      "puesto": "Lider de almacen"
+    },
+    {
+      "id": 5,
+      "nombre": "Alavaro Rendon",
+      "puesto": "Lider de compras"
+    },
+    {
+      "id": 1655173233085,
+      "nombre": "Arnoldo Rodriguez",
+      "puesto": "Sistemas"
+    }
+  ]
+}
