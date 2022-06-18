@@ -1,16 +1,16 @@
-html{
+html {
     box-sizing: border-box;
     font-size: 16px;
-    font-family: "Gill Sans Extrabold", Helvetica, sans-serif ;
+    font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
 }
 
 *,
 *:after,
-*::before{
+*::before {
     box-sizing: inherit;
 }
 
-input[type="text"]{
+input[type="text"] {
     border: thin solid#dedede;
     border-radius: 0.25rem;
     padding: 0.75rem;
@@ -21,11 +21,11 @@ input[type="text"]{
     font-size: 1rem;
     line-height: 1;
     background-color: transparent;
-}
+};
 
 button,
 input[type="submit"],
-input[type="reset"]{
+input[type="reset"] {
     border: thin solid rgb(231, 228, 228);
     border-radius: 0.25rem;
     padding: 0.5rem 1rem;
@@ -36,39 +36,44 @@ input[type="reset"]{
     font-weight: bold;
     font-size: 1rem;
     line-height: 1;
-    text-transform: none; 
+    text-transform: none;
     text-decoration: none;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
 }
 
-form{
+form {
     margin-bottom: 1rem;
 }
 
-hr{
+hr {
     margin: 2rem auto;
 
 }
 
-table{
+h5{
+    margin-left: 10px;
+}
+
+table {
     border-spacing: 0;
     border-collapse: collapse;
     width: 100%;
+    margin-left: 10px;
 }
 
-td{
+td {
     text-align: left;
     padding: 0.5rem;
     border-bottom: thin solid#dedede;
 }
 
 @media screen and(min-width:1024px) {
-    .grid-1-2{
+    .grid-1-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        align-items:start;
+        align-items: start;
         gap: 2rem;
     }
 }

@@ -23,7 +23,7 @@ export const helpHttp = () =>{
         setTimeout(() =>controller.abort(),3000);
 
         return fetch(endpoint,options)
-        .then((res)=>
+        .then((res) =>
         res.ok
         ?res.json()
         :Promise.reject({
@@ -32,7 +32,9 @@ export const helpHttp = () =>{
             statusText:res.statusText||"Ocurrio un error",
         })
         )
-        .catch((err)=>err);
+        .catch((err)=> {
+            return 'Error';
+        });
      };
 
     const get = (url,options={}) => customFetch(url,options);
