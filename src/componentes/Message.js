@@ -1,6 +1,6 @@
 import React from "react";
 
-const Message =({msg,bgColor})=>{
+const Message =({msg,bgColor,icon})=>{
     let style={
         padding:"1rem",
         marginBottom:"1rem",
@@ -12,6 +12,7 @@ const Message =({msg,bgColor})=>{
     return(
         <div style={style}>
            <p>{msg}</p>
+           {icon}
         </div>
     );
 };
