@@ -5,12 +5,12 @@ const CrudTable =({data,setDataToEdit,deleteData}) =>{
     return(
          <div>
              <h5>Colaboradores</h5>
-             <table class="table table-striped table-bordered" >
+             <table class="table table-striped table-bordered table-hover" >
                  <thead>
                      <tr>
-                         <th>Nombre</th>
-                         <th>Puesto</th>
-                         <th>Acciones</th>
+                         <th scope="row">Nombre</th>
+                         <th scope="row">Puesto</th>
+                         <th scope="row">Acciones</th>
                      </tr>
                  </thead>
                  <tbody>
