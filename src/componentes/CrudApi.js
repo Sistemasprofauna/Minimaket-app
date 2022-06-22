@@ -42,7 +42,7 @@ const CrudApi = () => {
                     setError(res);
                     setbd(null);
                 }
-
+  
             });
         } catch (e) {
             console.log('Catch capturado')

@@ -4,6 +4,7 @@ import CrudApi from "./componentes/CrudApi";
 import Navbar from "./componentes/barraNav";
 //import CrudApi from "./componentes/CrudApi";
 import Inicio from "./componentes/Inicio";
+import CrudBono from "./componentes/Bonos/asignarBono";
 //import ReactDOM  from 'react-dom';
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></link>
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Inicio />} />
           <Route path='/crearColaborador' element={<CrudApi />} />
+          <Route path='/asignarBono' element={<CrudBono />} />
         </Routes>
       </BrowserRouter>
     </>
