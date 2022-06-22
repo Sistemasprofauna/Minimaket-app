@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Inicio.css";
-import Button from '@mui/material/Button';
+import Rgdig from "./rdig";
+
 
 export default function Inicio() {
+    const [time, changeTime] = useState(new Date().toLocaleTimeString());
+    useEffect(function () {
+        setInterval(() => {
+          changeTime(new Date().toLocaleTimeString());
+        }, 1000);
+      }, []);
     return (
-        <div>
-            <h1>Bienvenido</h1>
-            <Button variant="contained">Hello World</Button>
-
+        <div className="Inicio">
+        <h1 className="Titulo">Bienvenido</h1>
+        <div className="Time"><Rgdig text={time}/></div>
+       
         </div>
 
     );
