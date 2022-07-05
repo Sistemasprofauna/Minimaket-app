@@ -1,2 +1,9 @@
+.card-body {
+  
+    align-content: center;
+    justify-items:center;
+    height: 70vh;
+    display:grid;
 
+}
 
