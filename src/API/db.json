@@ -3,32 +3,39 @@
     {
       "id": 1,
       "nombre": "Oscar Rojas",
-      "puesto": "Gerente Operativo"
+      "puesto": "Gerente Operativo",
+      "monto": 200
+      
     },
     {
       "id": 2,
       "nombre": "Alejandro Rojas",
-      "puesto": "Director General"
+      "puesto": "Director General",
+      "monto": 200
     },
     {
       "id": 3,
       "nombre": "Arnoldo Rodriguez",
-      "puesto": "Auxiliar de sistemas"
+      "puesto": "Auxiliar de sistemas",
+      "monto": 200
     },
     {
       "id": 4,
       "nombre": "Daniel Quintanilla",
-      "puesto": "Lider de almacen"
+      "puesto": "Lider de almacen",
+      "monto": 200
     },
     {
       "id": 5,
       "nombre": "Alavaro Rendon",
-      "puesto": "Lider de compras"
+      "puesto": "Lider de compras",
+      "monto": 200
     },
     {
       "id": 1655858650797,
       "nombre": "Alejandro Rojas",
-      "puesto": "Direccion General"
+      "puesto": "Direccion General",
+      "monto": 200
     }
   ]
 }

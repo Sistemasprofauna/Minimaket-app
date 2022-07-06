@@ -5,7 +5,7 @@ import "./login.css";
 const Login = () => {
   return (
 
-      <div className="card-body">
+      <div className="col-md-8">
         <form table >
           <div className="input-group flex-nowrap w-50 m-2" >
             <span className="input-group-text" id="addon-wrapping"><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
