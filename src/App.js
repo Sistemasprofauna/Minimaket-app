@@ -5,6 +5,7 @@ import Navbar from "./componentes/barraNav";
 import Inicio from "./componentes/Inicio";
 import CrudBono from "./componentes/Bonos/asignarBono";
 import Login from "./componentes/Login/Login";
+import { CreateSalePage } from "./pages/sales/createSale.page";
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></link>
 
 
@@ -12,7 +13,8 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+      <CreateSalePage></CreateSalePage>
+        {/* <Navbar />
         <Routes>
         <Route path='/' element={
         <Login />
@@ -21,7 +23,7 @@ function App() {
           <Route path='/InicioSesion' element={<Login />} />
           <Route path='/crearColaborador' element={<CrudApi />} />
           <Route path='/asignarBono' element={<CrudBono />} />
-        </Routes>
+        </Routes> */}
       </BrowserRouter>
     </>
 

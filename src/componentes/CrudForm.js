@@ -54,67 +54,101 @@ const CrudForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
         <h3>{dataToEdit ? "Editar Colaborador" : "Crear Colaborador"}</h3>
         <br></br>
         <form table onSubmit={manejoEnvios}>
-          <div className="input-group flex-nowrap w-50 m-2">
-            <span className="input-group-text" id="addon-wrapping">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  className="bi bi-person-circle"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                  <path
-                    fill-rule="evenodd"
-                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <input
-              type="text"
-              className="form-control"
-              name="nombre"
-              placeholder="Nombre"
-              onChange={manejoCambios}
-              value={form.name}
-              aria-label="Username"
-              aria-describedby="addon-wrapping"
-            />
+          <div className="row">
+            <div className="col-sm">
+              <div className="input-group flex-nowrap m-2">
+                <span className="input-group-text">
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="currentColor"
+                      className="bi bi-person-circle"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                      <path
+                        fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="nombre"
+                  placeholder="Nombre"
+                  //   onChange={manejoCambios}
+                  value={form.name}
+                  aria-label="Username"
+                />
+              </div>
+              <div className="input-group flex-nowrap m-2">
+                <span className="input-group-text">
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="currentColor"
+                      className="bi bi-person-circle"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                      <path
+                        fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="curp"
+                  placeholder="CURP"
+                  onChange={manejoCambios}
+                  value={form.curp}
+                  aria-label="Username"
+                />
+              </div>
+            </div>
+            <div className="col-sm">
+                { dataToEdit && <div className="input-group flex-nowrap m-2">
+                <span className="input-group-text">
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="currentColor"
+                      className="bi bi-person-circle"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                      <path
+                        fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <input
+                disabled
+                  type="text"
+                  className="form-control"
+                  name="dateCreated"
+                  placeholder="FechaCreacion"
+                  onChange={manejoCambios}
+                  value={form.dateCreated}
+                  aria-label="Username"
+                />
+              </div> }
+              
+            </div>
           </div>
-
-          {/* <div className="input-group flex-nowrap w-50 m-2">
-            <span className="input-group-text" id="addon-wrapping">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  className="bi bi-person-circle"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                  <path
-                    fill-rule="evenodd"
-                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <input
-              type="text"
-              className="form-control"
-              name="curp"
-              placeholder="CURP"
-              onChange={manejoCambios}
-              value={form.curp}
-              aria-label="Username"
-              aria-describedby="addon-wrapping"
-            />
-          </div> */}
 
           <button
             type="submit"
