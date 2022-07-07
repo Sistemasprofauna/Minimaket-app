@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../helpers/config';
 import { helpHttp } from '../helpers/helpHttp';
 import CrudForm from "./CrudForm";
 import CrudTable from "./crudTable";
@@ -6,16 +7,15 @@ import Loader from './loader';
 import Message from './Message';
 
 
-
-
 const CrudApi = () => {
+
     const [db, setbd] = useState(null)
     const [dataToEdit, setDataToEdit] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     let api = helpHttp();
-    let url = "http://localhost:5001/colaboradores";
+    const url = apiUrl + 'employees'
 
     useEffect(() => {
         setLoading(true);

@@ -14,7 +14,9 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={
+        <Login />
+        } />
           <Route path='/Bienvenido' element={<Inicio />} />
           <Route path='/InicioSesion' element={<Login />} />
           <Route path='/crearColaborador' element={<CrudApi />} />

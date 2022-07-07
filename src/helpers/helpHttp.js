@@ -1,16 +1,15 @@
 export const helpHttp = () =>{
 
-    const customFetch= (endpoint,options) => {
+    const customFetch= (endpoint, options) => {
         const defaultHeader = {
             accept:"application/json",
-            
         };
 
         const controller = new AbortController();
         options.signal= controller.signal;
 
-        options.method=options.method || "GET";
-        options.hearders=options.hearders?
+        options.method = options.method || "GET";
+        options.hearders = options.hearders?
         {...defaultHeader,...options.hearders}
         :defaultHeader;
 
@@ -37,11 +36,11 @@ export const helpHttp = () =>{
         });
      };
 
-    const get = (url,options={}) => customFetch(url,options);
+    const get = (url, options={}) => customFetch(url,options);
 
     const post = (url,options={}) => {
         options.method="POST";
-        return customFetch(url,options);
+        return customFetch(url, options);
     };
 
     const put = (url,options={}) => {
