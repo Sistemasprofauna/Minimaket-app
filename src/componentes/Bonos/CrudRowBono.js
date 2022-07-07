@@ -1,6 +1,8 @@
 import React from "react";
 
 
+
+
 const CrudRowBono = ({el}) =>{
     let{nombre,puesto,monto}=el
     return(
@@ -9,7 +11,7 @@ const CrudRowBono = ({el}) =>{
             <td className="text-center">{nombre}</td>
             <td className="text-center">{puesto}</td>
             <td className="text-center">{monto}</td>
-            <td className="text-center"><input type="checkbox" ></input></td>
+            <td className="text-center"><input type="checkbox" id="check"></input></td>
             
         </tr>
     )
