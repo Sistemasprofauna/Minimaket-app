@@ -27,7 +27,7 @@ export const EditEmployee = () => {
         }
 
         getData();
-    })
+    },[])
 
     const handleEmployee = (employee) => {
         setEmployee({

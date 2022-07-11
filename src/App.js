@@ -14,6 +14,7 @@ import { AdminPage } from "./pages/AdminPage.page";
 import { CashierPage } from "./pages/CashierPage.page";
 import { CreateEmployeePage } from "./pages/colaboradores/CreateEmployee.page";
 import { EditEmployee } from "./pages/colaboradores/EditEmployee.pages";
+import { ListBondsPage } from "./pages/bonos/ListBonds.page";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <Routes>
         <Route path="" element={<RequireAuth><Layout/></RequireAuth>}>
           <Route path="/employees" element={<ListColaboradoresPage></ListColaboradoresPage>}></Route>
-          <Route path="/bonds" element={<CrudBono></CrudBono>}/>
+          <Route path="/bonds" element={<ListBondsPage></ListBondsPage>}/>
           <Route path='/employees/create' element={<CreateEmployeePage/>}/>
           <Route path='/employees/:id' element={<EditEmployee/>}/>
         </Route>

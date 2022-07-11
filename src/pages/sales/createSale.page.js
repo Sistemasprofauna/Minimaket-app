@@ -14,6 +14,8 @@ import { apiUrl } from "../../helpers/config";
 import axios from "axios";
 import { getByPlaceholderText } from "@testing-library/react";
 import './img.css'
+import { useAuth } from "../../components/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export function CreateSalePage() {
 
@@ -182,8 +184,23 @@ export function CreateSalePage() {
         );
       }
 
+      const auth = useAuth();
+      const navigate = useNavigate()
+
+      const handleExit = () => {
+        
+        auth.signOut(() => {
+          navigate('../login')
+        })
+      }
+
     return (
       <Box sx={{ width: "100%", padding: 5 }} height="100vh">
+        <Box padding={1}>
+          <Button onClick={handleExit}>
+            Salir
+          </Button>
+        </Box>
         {/* Componente de pasos */}
         <Stepper activeStep={activeStep}>
           {steps.map((step) => {
