@@ -3,32 +3,61 @@ import TextField from "@mui/material/TextField"
 import Paper from "@mui/material/Paper"
 import Button from "@mui/material/Button"
 import { useEffect, useState } from "react"
+import { apiUrl } from "../helpers/config"
+import { helpHttp } from "../helpers/helpHttp"
 
-export function GetColaboradorComponent() {
+export function GetColaboradorComponent({sale, updateColaborador}) {
 
-    const [colaborador, setColaborador] = useState({});
+  const [curp, setCurp] = useState('')
 
-    function getColaborador() {
-        setColaborador({
-            nombre: "Colaborador 1"
-        })
-        console.log('Colaborador set')
+  const getUserData = () => {
+
+    var url = apiUrl + `employees?curp=${curp}` 
+
+    try {
+        helpHttp().get(url).then((res) => {
+
+            if (!res.err) {
+                if (res.message === 'Error') {
+                  updateColaborador({})
+                } else {
+                  updateColaborador(res)
+                }
+
+            } else {
+              updateColaborador({});
+            }
+        });
+    } catch (e) {
+        console.log('Catch capturado')
+    }
+}
+
+    const handleChange = () => {
+      console.log(curp)
+      getUserData()
+    }
+
+    const handleCurpChange = (e) => {
+      setCurp(e.target.value.toUpperCase())
+    }
+
+    const handleKeyUpCurp = (e) => {
+      e.target.value = e.target.value.toUpperCase();
     }
 
     return (
       <div>
         <form>
           <div className="form-outline mb-4">
-            <input type="search" id="form1Example1" class="form-control" />
+            <input type="search" id="form1Example1" class="form-control" onChange={handleCurpChange} onKeyUp={handleKeyUpCurp}/>
             <label class="form-label" for="form1Example1">
               CURP
             </label>
           </div>
-
           <div className="form-outline mb-4">
-            {colaborador && colaborador.nombre}
             <input
-              value={`${colaborador.nombre}`}
+              value={sale.employeeName}
               type="text"
               id="form1Example2"
               class="form-control"
@@ -39,7 +68,7 @@ export function GetColaboradorComponent() {
             </label>
           </div>
         </form>
-        <button onClick={() => {getColaborador()}} className="btn btn-primary btn-block">Buscar</button>
+        <button onClick={handleChange} className="btn btn-primary btn-block">Buscar</button>
       </div>
     );
 }

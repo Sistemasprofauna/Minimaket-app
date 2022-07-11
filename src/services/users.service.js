@@ -1,5 +1,5 @@
-import { helpHttp } from "../../helpers/helpHttp"
-import { apiUrl } from "../../helpers/config"
+import { helpHttp } from "../helpers/helpHttp"
+import { apiUrl } from "../helpers/config"
 
 const getUsers = async () => {
     var url = apiUrl + 'users'

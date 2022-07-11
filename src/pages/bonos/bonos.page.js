@@ -1,6 +1,5 @@
 import React,{useState} from "react";
-import TablaBono from "./CrudTableBono";
-
+import { TablaBonos } from "../../components/bonos/TablaBonos";
 
 const BDbonos =
     [
@@ -42,17 +41,14 @@ const BDbonos =
         }
     ]
 
-
-
-
-
-const CrudBono = () => {
+export const PageBonos = () => {
 
     const [bonos, setBonos] = useState(BDbonos);
     
-    const autorizarBono = (id) => {
+    const autorizarBono = (id, setChecked) => {
         var data = BDbonos.find(bono => bono.id == id);
         data.asignar = !data.asignar
+        setChecked(data.asignar)
     }
 
     const autorizarBonos = () => {
@@ -66,7 +62,7 @@ const CrudBono = () => {
     return (
       <div>
         <h3 className="w-50 m-4">Colaboradores</h3>
-        <TablaBono data={bonos} autorizarBono={autorizarBono} autorizarBonos={autorizarBonos} />
+        <TablaBonos data={bonos} autorizarBono={autorizarBono} autorizarBonos={autorizarBonos} />
         <button
           type="submit"
           value="Enviar"
@@ -89,5 +85,3 @@ const CrudBono = () => {
       </div>
     );
 };
-
-export default CrudBono;

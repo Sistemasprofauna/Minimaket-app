@@ -1,82 +1,108 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../components/AuthProvider";
 import { apiUrl } from "../../helpers/config";
 import { helpHttp } from "../../helpers/helpHttp";
-import { getUsers } from "../services/users.service";
+import { getUsers } from "../../services/users.service";
 import "./login.css";
+import {Alert} from '@mui/material';
 
 const Login = () => {
+  let navigate = useNavigate();
+  let location = useLocation();
+  let auth = useAuth();
+
+  if(auth.isLoggedIn()){
+    navigate("../", {replace: true})
+  }
 
   var [users, setUsers] = useState();
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [pin, setPin] = useState(null)
+  const [error, setError] = useState(null)
 
-  var url = apiUrl + 'users';
+  var url = apiUrl + "users";
 
   useEffect(() => {
     try {
-        helpHttp().get(url).then((res) => {
-
-            if (!res.err) {
-                if (res === 'Error') {
-                    setUsers([])
-                } else {
-                    setUsers(res)
-                }
-
+      helpHttp()
+        .get(url)
+        .then((res) => {
+          if (!res.err) {
+            if (res === "Error") {
+              setUsers([]);
             } else {
-                setUsers([]);
+              setUsers(res);
             }
+          } else {
+            setUsers([]);
+          }
         });
     } catch (e) {
-        console.log('Catch capturado')
+      console.log("Catch capturado");
     }
-}, [url]);
+  }, [url]);
 
+  const handleLogin = () => {
+    if(selectedUser && pin){
+      auth.signIn(selectedUser, pin , () => {
+        navigate("/", {replace: true})
+      }, handleLoginError)
+    }
+  };
+
+  const handleLoginError = (message) => {
+    setError(message)
+    setTimeout(() => {
+      setError(null)
+    },2500)
+  }
+  const handleUserSelect = (e) => {
+    setSelectedUser(e.target.value)
+  }
+
+  const handlePinChange = (e) => {
+    setPin(e.target.value)
+  }
 
   return (
     <div className="auth-wrapper">
-          <div className="auth-inner">
-            <form>
-              <h3>Ingresar</h3>
-              {/* Usuario */}
-              <div className="mb-3">
-                <label>Usuario</label>
-                <select className="form-control">
-                  {
-                    users && users.map(username => (
-                      <option>
-                        {username}
-                      </option>
-                    ))
-                  }
-                </select>
-                {/* <input
-                  type="text"
-                  className="form-control"
-                  placeholder="usuario"
-                /> */}
-              </div>
-              {/* Password */}
-              <div className="mb-3">
-                <label>Contraseña</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="contraseña"
-                />
-              </div>
-              
-              <div className="d-grid">
-                <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
-              </div>
-              {/* <p className="forgot-password text-right">
-                Forgot <a href="#">password?</a>
-              </p> */}
-            </form>
+      <div className="auth-inner">
+        <h3>Ingresar</h3>
+          {/* Usuario */}
+          <div className="mb-3">
+            <label>Usuario</label>
+            <select className="form-control" onChange={handleUserSelect}>
+              <option></option>
+              {users &&
+                users.map((username) => (
+                  <option key={username}>{username}</option>
+                ))}
+            </select>
           </div>
+          {/* Password */}
+          <div className="mb-3">
+            <label>Contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="contraseña"
+              onChange={handlePinChange}
+            />
+          </div>
+          <div className="d-grid">
+          <button
+            className="btn btn-primary"
+            onClick={handleLogin}
+          >
+            Submit
+          </button>
         </div>
+        <br/>
+        {error && <Alert severity="error">{error}</Alert>}
+      </div>
+    </div>
   );
-}
+};
 
-
-export default Login
+export default Login;

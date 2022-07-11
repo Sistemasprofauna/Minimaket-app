@@ -1,18 +1,40 @@
-import React, { useState } from "react";
-import CrudRowBono from "./CrudRowBono";
+import React, { useRef, useState } from "react";
+import { Row } from "./RowBonos";
 
-function seleccionarTodo() {
-    for (let i=0; i < document.f1.elements.length; i++) {
-        if(document.f1.elements[i].type === "checkbox") {
-            document.f1.elements[i].checked = true;
+export const TablaBonos = ({data, autorizarBono, autorizarBonos}) => {
+
+    const [checkStates, setCheckStates] = useState(data.map(bono => ({
+        id: bono.id,
+        asignar: false
+    })))
+
+    const [action, setAction] = useState('Check')
+
+
+    function asignarBonos(){
+        var bonos;
+        if(action == 'Check'){
+            bonos = checkStates.map(bono => ({
+                id: bono.id,
+                asignar: true
+            }));
+            setAction('UnCheck')
         }
+        else{
+            bonos = checkStates.map(bono => ({
+                id: bono.id,
+                asignar: false
+            }));
+            setAction('Check')
+        }
+        console.log(bonos)
+        setCheckStates(bonos)
     }
-}
 
-const TablaBono = ({data, autorizarBono, autorizarBonos}) => {
+    function asignarBono(id) {
+        console.log(id)
+    }
 
-    const [checked, setChecked] = useState(false)
-    
     return (
       <div>
         <table className="table table-striped table-bordered table-hover text-center">
@@ -23,7 +45,7 @@ const TablaBono = ({data, autorizarBono, autorizarBonos}) => {
               <th scope="row">Monto</th>
               <th scope="row">
                 Autorizacion{" "}
-                <button onClick={() => {autorizarBonos(null)}}>
+                <button onClick={() => {asignarBonos()}}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -44,12 +66,10 @@ const TablaBono = ({data, autorizarBono, autorizarBonos}) => {
                 <td colSpan="3">Sin datos</td>
               </tr>
             ) : (
-              data.map((el) => <CrudRowBono key={el.id} el={el} handleCheckBoxChange={autorizarBono} checked={checked} setChecked={setChecked}/>)
+              data.map((el,index) => <Row key={el.id} el={el} handleCheckBoxChange={asignarBono} bono={checkStates[index]}/>)
             )}
           </tbody>
         </table>
       </div>
     );
 }
-
-export default TablaBono
