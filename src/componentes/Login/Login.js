@@ -9,10 +9,9 @@ import {Alert} from '@mui/material';
 
 const Login = () => {
   let navigate = useNavigate();
-  let location = useLocation();
   let auth = useAuth();
 
-  if(auth.isLoggedIn()){
+  if(auth.isLoggedIn){
     navigate("../", {replace: true})
   }
 
@@ -20,6 +19,10 @@ const Login = () => {
   const [selectedUser, setSelectedUser] = useState(null)
   const [pin, setPin] = useState(null)
   const [error, setError] = useState(null)
+
+  let location = useLocation();
+
+  let from = location.state?.from?.pathname || '/';
 
   var url = apiUrl + "users";
 
@@ -46,7 +49,7 @@ const Login = () => {
   const handleLogin = () => {
     if(selectedUser && pin){
       auth.signIn(selectedUser, pin , () => {
-        navigate("/", {replace: true})
+        navigate(from, {replace: true})
       }, handleLoginError)
     }
   };

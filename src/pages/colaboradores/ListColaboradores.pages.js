@@ -1,28 +1,25 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import TableHead from '@mui/material/TableHead';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { getUsers } from '../../services/users.service';
 import { helpHttp } from '../../helpers/helpHttp';
 import { apiUrl } from '../../helpers/config';
 import { useEffect, useState } from 'react';
 import Container from '@mui/material/Container';
-import {ButtonGroup, Button, Stack} from '@mui/material'
+import { Button, Stack} from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom';
+import { employeeService } from '../../services/employee.service';
 
 
 const columns = [
@@ -103,16 +100,18 @@ export const ListColaboradoresPage = () => {
     setPage(newPage);
     // let limit = rowsPerPage;
     // let offset = (page) * rowsPerPage    
-    getData(newPage,rowsPerPage)
+    handleData(newPage,rowsPerPage)
   }
 
-  useEffect(() => {
-    getData()
-  },[])
+  const handleError = (message) => {
+    console.log(message)
+  }
 
-  const getData = async (page, rowsPerPage) => {
-    let api = helpHttp();
+  const handleSuccess = (data) => {
+    setData(data)
+  }
 
+  const handleData = async (page, rowsPerPage) => {
     let _start = 0,
     _end = 5;
 
@@ -120,7 +119,18 @@ export const ListColaboradoresPage = () => {
       _start = page * rowsPerPage;
       _end = _start + rowsPerPage;
     }
-    const url = apiUrl + "employees"+`?_start=${_start}&_end=${_end}`;
+
+    let url = apiUrl + "employees"+`?_start=${_start}&_end=${_end}`;
+    employeeService.getEmployeesList(url, handleError, handleSuccess)
+  }
+
+  useEffect(() => {
+    handleData()
+  },[])
+
+  const getData = async (page, rowsPerPage) => {
+    let api = helpHttp();
+    let url
 
     try {
       helpHttp()

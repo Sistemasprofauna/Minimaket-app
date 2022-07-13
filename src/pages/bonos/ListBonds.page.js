@@ -82,7 +82,10 @@ const Rows = ({setAlert}) => {
   }
 
   const handleError = (message) => {
-    console.log(message)
+    setAlert({
+      message,
+      severity: 'error'
+    })
   }
 
   const handleData = (data) => {

@@ -1,16 +1,19 @@
-import axios from 'axios'
+import { axiosCustom } from '../helpers/axiosInstance';
 import { apiUrl } from '../helpers/config'
 
 const getAvailableBonds = async (handleError, handleData) => {
     let url = apiUrl + 'bonds';
     try{
-        let response = await axios.get(url)
+        let response = await axiosCustom.get(url)
         if(response){
             if(response.data.error){
                 handleError(response.data.erroMessage)
             }
             else{
+              if(response.data.length > 0)
                 handleData(response.data)
+                else
+                handleError('Si datos para mostrar')
             }
         }
         else{
@@ -25,7 +28,7 @@ const asignBond = async (employeeId, handleError, handleSucces) => {
 
     let url = apiUrl + 'employees/' + employeeId + '/bonds/confirm'
     try{
-        let response = await axios.put(url);
+        let response = await axiosCustom.put(url);
 
         let message = "";
         if (response) {
@@ -50,7 +53,7 @@ const setAllBonds = async (handleError, handleSuccess) => {
   let url = apiUrl + "bonds/confirm";
 
   try {
-    let response = await axios.put(url);
+    let response = await axiosCustom.put(url);
 
     if (response) {
       if (response.data.error) {

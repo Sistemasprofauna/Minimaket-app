@@ -1,14 +1,16 @@
 import { createContext, useContext, useState } from "react"
-import { Navigate } from "react-router-dom"
+import { Navigate, useLocation } from "react-router-dom"
 import jwt_decode from "jwt-decode";
 import { authService } from "../services/auth.service";
 
 
 const AuthContext = createContext({
+    isLoggedIn: false,
+    user: null,
     getUserData: () => {},
-    isLoggedIn: () => {},
     signIn: (username, password, callback) => {},
     signOut: (callback) => {},
+    verifyToken: () => {}
 })
 
 export const useAuth = () => {
@@ -17,10 +19,18 @@ export const useAuth = () => {
 
 export const AuthProvider = (props) => {
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
+
     const signIn = async (username, password, callback, setError) => {
+
+        //Hacer request de token
         let resp = await authService.signIn(username,password);
+
         if(!resp.error){
             //Login exitoso
+            setIsLoggedIn(true);
+            setUser({})
             callback();
         }
         else{
@@ -31,19 +41,27 @@ export const AuthProvider = (props) => {
     }
 
     const signOut = (callback) => {
+        //Borrar token
         authService.signOut();
+        setIsLoggedIn(false)
         callback();
-    }
-
-    const isLoggedIn = () => {
-        return authService.isLoggedIn()
     }
 
     const getUserData = () => {
         return authService.getUserData();
     }
 
-    let value = {getUserData, signIn, signOut, isLoggedIn}
+    const verifyToken = () => {
+        if(authService.validToken()){
+            console.log('token not expired')
+            setIsLoggedIn(true)
+        }else{
+            console.log('token expired')
+            setIsLoggedIn(false)
+        }
+    }
+
+    let value = {isLoggedIn, user, getUserData, signIn, signOut, verifyToken}
 
     return (
         <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
@@ -53,10 +71,14 @@ export const AuthProvider = (props) => {
 export const RequireAuth = (props) => {
 
     let auth = useAuth();
+    let location = useLocation();
 
-    if(!auth.isLoggedIn()) {
-        return <Navigate to="/login"></Navigate>
+    auth.verifyToken();
+
+    if(!auth.isLoggedIn) {
+        return <Navigate to="/login" state={{from: location}} replace/>
     }
-
-    return props.children;
+    else{
+        return props.children;
+    }
 }

@@ -16,7 +16,7 @@ import { CreateEmployeePage } from "./pages/colaboradores/CreateEmployee.page";
 import { EditEmployee } from "./pages/colaboradores/EditEmployee.pages";
 import { ListBondsPage } from "./pages/bonos/ListBonds.page";
 
-function App() {
+function App(){ 
   return (
     <AuthProvider>
       <Routes>
@@ -35,14 +35,19 @@ function App() {
 function Layout() {
 
   let auth = useAuth()
-  let user = auth.getUserData();
 
-  if(user.userType == 'Administrator'){
-    return <AdminPage></AdminPage>;
-  }
-  
-  if(user.userType == 'Cashier'){
-    return <CashierPage></CashierPage>
+  if(auth.isLoggedIn){
+    let user = auth.getUserData();
+
+    if(user){
+      if(user.userType == 'Administrator'){
+        return <AdminPage></AdminPage>;
+      }
+      
+      if(user.userType == 'Cashier'){
+        return <CashierPage></CashierPage>
+      }
+    }
   }
 
   return(
