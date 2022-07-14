@@ -6,6 +6,7 @@ const getAvailableBonds = async (handleError, handleData) => {
     try{
         let response = await axios.get(url)
         if(response){
+          console.log(response)
             if(response.data.error){
                 handleError(response.data.erroMessage)
             }

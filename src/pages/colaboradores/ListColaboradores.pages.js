@@ -13,7 +13,6 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { helpHttp } from '../../helpers/helpHttp';
 import { apiUrl } from '../../helpers/config';
 import { useEffect, useState } from 'react';
 import Container from '@mui/material/Container';
@@ -138,6 +137,11 @@ export const ListColaboradoresPage = () => {
         navigate(`/employees/${id}`);
       };
 
+      const handleDelete = () => {
+        employeeService.removeEmployee(id);
+        window.location.reload()
+      }
+
       return (
         <TableRow key={employee.id}>
           {/* Nombre */}
@@ -152,7 +156,7 @@ export const ListColaboradoresPage = () => {
             <Button key="edit" color='warning' variant='contained' onClick={handleEdit}>
                 Editar
               </Button>
-            <Button key="delete" color="error" variant='contained'>
+            <Button key="delete" color="error" variant='contained' onClick={handleDelete}>
               Eliminar
             </Button>
             </Stack>

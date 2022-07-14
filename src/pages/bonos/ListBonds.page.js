@@ -53,7 +53,7 @@ const Row = ({bond, setAlert, refreshRows}) => {
         setAlert({...alert});
         setTimeout(() => {
             setAlert(null)
-        }, 1500);
+        }, 5000);
     }
 
 
@@ -104,10 +104,12 @@ const Headers = () => {
 export const ListBondsPage = () => {
 
     const [alert, setAlert] = useState(null);
-    const navigate = useNavigate();
 
   const handleAsignAll = () => {
     bondsService.setAllBonds(handleError, handleSuccess);
+    setTimeout(() => {
+      window.location.reload()
+    }, 1500) 
   };
 
   const handleError = (message) => {
@@ -122,7 +124,6 @@ const handleSuccess = () => {
         message: 'Bonos asignados',
         severity:'success'
     })
-    navigate('../bonds')
 }
 
 const handleAlert = (alert) => {

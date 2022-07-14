@@ -1,4 +1,4 @@
-const apiUrl = "http://192.168.2.48:5000/"
+const apiUrl = "http://10.0.1.64:5000/"
 
 export {
     apiUrl
