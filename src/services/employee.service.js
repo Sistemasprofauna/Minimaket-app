@@ -1,11 +1,11 @@
-import { axiosCustom } from '../helpers/axiosInstance'
+import axios from 'axios';
 import { apiUrl } from '../helpers/config'
 
 const createEmployee = async (employee, handleError, handleSuccess) => {
     let url = apiUrl + 'employees'
 
     if(employee.name && employee.curp){
-        let response = await axiosCustom.post(url,{
+        let response = await axios.post(url,{
             ...employee
         });
 
@@ -25,7 +25,7 @@ const createEmployee = async (employee, handleError, handleSuccess) => {
 
 const getEmployeesList = async (url, handleError, handleSuccess) => {
     try{
-        let response = await axiosCustom.get(url);
+        let response = await axios.get(url);
         if(response){
             if(response.data.error){
                 handleError(response.data.errorMessage)
@@ -45,7 +45,7 @@ const getEmployeeById = async (id, handleError, handleEmployee) => {
     let url = apiUrl + 'employees/' + id
 
     if(id){
-        let response = await axiosCustom.get(url);
+        let response = await axios.get(url);
 
         if(response.data.error){
             handleError(response.data.errorMessage)
@@ -61,7 +61,7 @@ const updateEmployee = async (employee, handleError, handleSucces) => {
     let url = apiUrl + 'employees/' + employee.employeeId
     console.log(url)
     try{
-        let response = await axiosCustom.put(url,{
+        let response = await axios.put(url,{
             ...employee
         })
 

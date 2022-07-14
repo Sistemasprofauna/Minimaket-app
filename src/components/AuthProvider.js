@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { Navigate, useLocation } from "react-router-dom"
 import jwt_decode from "jwt-decode";
 import { authService } from "../services/auth.service";
-import { axiosCustom } from "../helpers/axiosInstance";
+import axios from "axios";
 
 
 const AuthContext = createContext({
@@ -25,7 +25,7 @@ export const AuthProvider = (props) => {
         return localStorage.getItem('token') ? localStorage.getItem('token') : undefined; 
     });
 
-    axiosCustom.defaults.headers.common['Authorization'] = token;
+    axios.defaults.headers.common['Authorization'] = token;
 
     useEffect(() => {
         setInterval(()=> {

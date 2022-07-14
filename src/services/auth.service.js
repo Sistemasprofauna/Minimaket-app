@@ -1,7 +1,6 @@
 import jwtDecode from "jwt-decode";
 import axios from 'axios';
 import { apiUrl } from "../helpers/config";
-import { setAxiosToken } from "../helpers/axiosInstance";
 
 const authService = {
   isAuthenticated: false,

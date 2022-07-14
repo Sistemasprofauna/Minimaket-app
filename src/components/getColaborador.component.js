@@ -4,30 +4,36 @@ import Paper from "@mui/material/Paper"
 import Button from "@mui/material/Button"
 import { useEffect, useState } from "react"
 import { apiUrl } from "../helpers/config"
-import { helpHttp } from "../helpers/helpHttp"
+import axios from "axios"
+
 
 export function GetColaboradorComponent({sale, updateColaborador}) {
 
   const [curp, setCurp] = useState('')
 
-  const getUserData = () => {
+  const getUserData = async () => {
 
     var url = apiUrl + `employees?curp=${curp}` 
 
     try {
-        helpHttp().get(url).then((res) => {
+      let response = await axios.get(url);
 
-            if (!res.err) {
-                if (res.message === 'Error') {
-                  updateColaborador({})
-                } else {
-                  updateColaborador(res)
-                }
+      if(response){
+        updateColaborador(response.data)
+      }
+        // helpHttp().get(url).then((res) => {
 
-            } else {
-              updateColaborador({});
-            }
-        });
+        //     if (!res.err) {
+        //         if (res.message === 'Error') {
+        //           updateColaborador({})
+        //         } else {
+        //           updateColaborador(res)
+        //         }
+
+        //     } else {
+        //       updateColaborador({});
+        //     }
+        // });
     } catch (e) {
         console.log('Catch capturado')
     }
