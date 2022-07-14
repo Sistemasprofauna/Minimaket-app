@@ -3,17 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../components/AuthProvider";
 import { apiUrl } from "../../helpers/config";
 import { helpHttp } from "../../helpers/helpHttp";
-import { getUsers } from "../../services/users.service";
 import "./login.css";
 import {Alert} from '@mui/material';
 
 const Login = () => {
   let navigate = useNavigate();
   let auth = useAuth();
-
-  if(auth.isLoggedIn){
-    navigate("../", {replace: true})
-  }
 
   var [users, setUsers] = useState();
   const [selectedUser, setSelectedUser] = useState(null)

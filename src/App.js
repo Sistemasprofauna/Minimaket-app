@@ -1,22 +1,17 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CrudApi from "./componentes/CrudApi";
-import Navbar from "./componentes/barraNav";
-import Inicio from "./componentes/Inicio";
-import CrudBono from "./componentes/Bonos/asignarBono";
-import Login from "./componentes/Login/Login";
-import { CreateSalePage } from "./pages/sales/createSale.page";
-import { PageBonos } from "./pages/bonos/bonos.page";
+import {  Route, Routes } from "react-router-dom";
+import Login from "./pages/login/Login";
 import { ListColaboradoresPage } from "./pages/colaboradores/ListColaboradores.pages";
-import Container from '@mui/material/Container';
-import { AuthProvider, RequireAuth, useAuth } from "./components/AuthProvider";
+import { AuthProvider } from "./components/AuthProvider";
+import { RequireAuth } from "./components/RequireAuth.component";
 import { AdminPage } from "./pages/AdminPage.page";
 import { CashierPage } from "./pages/CashierPage.page";
 import { CreateEmployeePage } from "./pages/colaboradores/CreateEmployee.page";
 import { EditEmployee } from "./pages/colaboradores/EditEmployee.pages";
 import { ListBondsPage } from "./pages/bonos/ListBonds.page";
+import { authService } from "./services/auth.service";
 
-function App(){ 
+function App(){
   return (
     <AuthProvider>
       <Routes>
@@ -33,26 +28,19 @@ function App(){
 }
 
 function Layout() {
+  const user = authService.getUserData();
 
-  let auth = useAuth()
+  if (user) {
+    if (user.userType == "Administrator") {
+      return <AdminPage></AdminPage>;
+    }
 
-  if(auth.isLoggedIn){
-    let user = auth.getUserData();
-
-    if(user){
-      if(user.userType == 'Administrator'){
-        return <AdminPage></AdminPage>;
-      }
-      
-      if(user.userType == 'Cashier'){
-        return <CashierPage></CashierPage>
-      }
+    if (user.userType == "Cashier") {
+      return <CashierPage></CashierPage>;
     }
   }
 
-  return(
-    <div>Error</div>
-  )
+  return <div>Error</div>;
 }
 
 export default App;

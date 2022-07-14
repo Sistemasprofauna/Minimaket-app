@@ -1,16 +1,15 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { Navigate, useLocation } from "react-router-dom"
 import jwt_decode from "jwt-decode";
 import { authService } from "../services/auth.service";
+import { axiosCustom } from "../helpers/axiosInstance";
 
 
 const AuthContext = createContext({
-    isLoggedIn: false,
     user: null,
-    getUserData: () => {},
-    signIn: (username, password, callback) => {},
-    signOut: (callback) => {},
-    verifyToken: () => {}
+    signIn: (username, password) => {},
+    signOut: () => {},
+    checkAuth: () => {}
 })
 
 export const useAuth = () => {
@@ -19,66 +18,51 @@ export const useAuth = () => {
 
 export const AuthProvider = (props) => {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(() => {
+        return authService.checkAuth()
+    });
+    const [token, setToken] = useState(() => {
+        return localStorage.getItem('token') ? localStorage.getItem('token') : undefined; 
+    });
 
-    const signIn = async (username, password, callback, setError) => {
+    axiosCustom.defaults.headers.common['Authorization'] = token;
 
-        //Hacer request de token
-        let resp = await authService.signIn(username,password);
+    useEffect(() => {
+        setInterval(()=> {
+            checkAuth()
+        },5000)
+    },[])
 
-        if(!resp.error){
-            //Login exitoso
-            setIsLoggedIn(true);
-            setUser({})
-            callback();
+    const signIn = async (username, password, callback, handleError) => {
+        let {error , errorMessage} = await authService.logIn(username, password, setToken);
+
+        if(error){
+            handleError(errorMessage)
         }
         else{
-            //Login fallido
-            setError(resp.errorMessage)
-            return;
+            setIsLoggedIn(true)
+            callback();
         }
     }
 
     const signOut = (callback) => {
-        //Borrar token
-        authService.signOut();
+        authService.logOut();
         setIsLoggedIn(false)
-        callback();
+        callback()
     }
 
-    const getUserData = () => {
-        return authService.getUserData();
-    }
-
-    const verifyToken = () => {
-        if(authService.validToken()){
-            console.log('token not expired')
+    const checkAuth = () => {
+        if(authService.checkAuth()){
             setIsLoggedIn(true)
-        }else{
-            console.log('token expired')
+        }
+        else{
             setIsLoggedIn(false)
         }
     }
 
-    let value = {isLoggedIn, user, getUserData, signIn, signOut, verifyToken}
+    let value = {isLoggedIn, signIn, signOut, checkAuth}
 
     return (
         <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
     )
-}
-
-export const RequireAuth = (props) => {
-
-    let auth = useAuth();
-    let location = useLocation();
-
-    auth.verifyToken();
-
-    if(!auth.isLoggedIn) {
-        return <Navigate to="/login" state={{from: location}} replace/>
-    }
-    else{
-        return props.children;
-    }
 }

@@ -15,7 +15,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useAuth } from "../components/AuthProvider";
+import { useAuth } from "../AuthProvider";
+
 
 const Navbar = () => {
   const auth = useAuth();

@@ -1,6 +1,6 @@
 import React from "react"
 import { Outlet } from "react-router-dom"
-import Navbar from "../componentes/barraNav"
+import Navbar from "../components/navBar/barraNav"
 
 export const AdminPage = () => {
     return (

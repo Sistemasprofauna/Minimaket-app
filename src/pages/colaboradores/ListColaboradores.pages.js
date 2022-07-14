@@ -104,7 +104,7 @@ export const ListColaboradoresPage = () => {
   }
 
   const handleError = (message) => {
-    console.log(message)
+    
   }
 
   const handleSuccess = (data) => {
@@ -127,29 +127,6 @@ export const ListColaboradoresPage = () => {
   useEffect(() => {
     handleData()
   },[])
-
-  const getData = async (page, rowsPerPage) => {
-    let api = helpHttp();
-    let url
-
-    try {
-      helpHttp()
-        .get(url)
-        .then((res) => {
-          if (!res.err) {
-            if (res === "Error") {
-              setData([])
-            } else {
-              setData(res);
-            }
-          } else {
-            setData([])
-          }
-        });
-    } catch (e) {
-      console.log("Error");
-    }
-  }
 
   function returnRows(data){
 
@@ -189,7 +166,7 @@ export const ListColaboradoresPage = () => {
     }
 
     return(
-      data.map(employee => {
+      data && data.map(employee => {
         return (<Row employee={employee}></Row>)
       })
       )
