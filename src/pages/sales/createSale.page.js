@@ -1,7 +1,7 @@
 import { 
   Button, StepLabel, 
   Stepper, Typography, 
-  Chip, Stack 
+  Chip, Stack, Modal 
 } from "@mui/material";
 import Step from '@mui/material/Step';
 import { Box } from "@mui/system";
@@ -18,6 +18,7 @@ import { useAuth } from "../../components/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 export function CreateSalePage() {
+
 
     const [activeStep, setActiveStep] = useState(0);
     const [ventaSuccess, setVentaSuccess] = useState(false);
@@ -193,7 +194,6 @@ export function CreateSalePage() {
           navigate('../login')
         })
       }
-
     return (
       <Box sx={{ width: "100%", padding: 5 }} height="100vh">
         <Box padding={1}>

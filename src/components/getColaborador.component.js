@@ -5,16 +5,17 @@ import Button from "@mui/material/Button"
 import { useEffect, useState } from "react"
 import { apiUrl } from "../helpers/config"
 import axios from "axios"
+import { QrModal } from "./QrModal.components"
 
 
-export function GetColaboradorComponent({sale, updateColaborador}) {
+export function GetColaboradorComponent({sale, updateColaborador, showDialog}) {
 
-  const [curp, setCurp] = useState('')
-
+  var code = '';
   const getUserData = async () => {
 
-    var url = apiUrl + `employees?curp=${curp}` 
+    var url = apiUrl + `employees?code=${code}` 
 
+    console.log(url)
     try {
       let response = await axios.get(url);
 
@@ -38,28 +39,20 @@ export function GetColaboradorComponent({sale, updateColaborador}) {
         console.log('Catch capturado')
     }
 }
-
-    const handleChange = () => {
-      console.log(curp)
+    const handleQrResult = (data) => {
+      code = data;
       getUserData()
-    }
-
-    const handleCurpChange = (e) => {
-      setCurp(e.target.value.toUpperCase())
-    }
-
-    const handleKeyUpCurp = (e) => {
-      e.target.value = e.target.value.toUpperCase();
     }
 
     return (
       <div>
         <form>
           <div className="form-outline mb-4">
-            <input type="search" id="form1Example1" class="form-control" onChange={handleCurpChange} onKeyUp={handleKeyUpCurp}/>
+            {/* <input type="text" id="form1Example1" class="form-control" value={code}/> */}
             <label class="form-label" for="form1Example1">
-              CURP
+              Codigo
             </label>
+            <QrModal setResult={handleQrResult}/>
           </div>
           <div className="form-outline mb-4">
             <input
@@ -74,7 +67,8 @@ export function GetColaboradorComponent({sale, updateColaborador}) {
             </label>
           </div>
         </form>
-        <button onClick={handleChange} className="btn btn-primary btn-block">Buscar</button>
+
+
       </div>
     );
 }

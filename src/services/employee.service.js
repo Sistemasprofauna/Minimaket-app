@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { apiUrl } from '../helpers/config'
+import { parse } from 'json2csv';
 
 const createEmployee = async (employee, handleError, handleSuccess) => {
     let url = apiUrl + 'employees'
@@ -97,7 +98,6 @@ const removeEmployee = async (employeeId) => {
         let response = await axios.delete(url);
 
         if(response){
-            console.log(response)
             if(!response.error){
             }else{
 
@@ -108,10 +108,30 @@ const removeEmployee = async (employeeId) => {
     }
 }
 
+const getQrData = async () => {
+    let url = apiUrl + `qrdata/employees`
+
+    try{
+        let response = await axios.get(url);
+        
+        if(response){
+            let fields = ['Name','Code']
+            let opts = {fields};
+
+            let csv = parse(response.data, opts);
+            return response.data;
+        }
+    }
+    catch(e){
+        return [];
+    }
+}
+
 export const employeeService = {
     createEmployee,
     getEmployeeById,
     updateEmployee,
     getEmployeesList,
-    removeEmployee
+    removeEmployee,
+    getQrData
 }

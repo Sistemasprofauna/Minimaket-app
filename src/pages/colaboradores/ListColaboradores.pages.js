@@ -19,6 +19,7 @@ import Container from '@mui/material/Container';
 import { Button, Stack} from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom';
 import { employeeService } from '../../services/employee.service';
+import { CSVLink } from 'react-csv';
 
 
 const columns = [
@@ -86,8 +87,20 @@ export const ListColaboradoresPage = () => {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [qrdata, setQrData] = useState([{}])
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
+
+  useEffect(() => {
+
+    const getQrValues = async () => {
+      let qrValues = await employeeService.getQrData();
+      setQrData(qrValues);
+    }
+
+    getQrValues();
+    console.log(qrdata)
+  },[])
 
   const handleChangeRowsPerPage = (event) => {
     let pageSize = parseInt(event.target.value, 10)
@@ -100,6 +113,10 @@ export const ListColaboradoresPage = () => {
     // let limit = rowsPerPage;
     // let offset = (page) * rowsPerPage    
     handleData(newPage,rowsPerPage)
+  }
+
+  const handleQrDownload = () => {
+    return employeeService.getQrData();
   }
 
   const handleError = (message) => {
@@ -192,6 +209,11 @@ export const ListColaboradoresPage = () => {
           <Link to={`/employees/create`}>
             <Button>Nuevo</Button>
           </Link>
+          <CSVLink data={qrdata} filename={"qr-code-data.csv"}>
+            <Button>
+              Datos QR
+            </Button>
+            </CSVLink>
         </Box>
         <Table
         sx={{ minWidth: 500, width: "100%" }}
